@@ -63,9 +63,13 @@ static void linha_soma_linha(matrix_t *mat, size_t l, size_t lu, double m)
  *  Retorna a inversa da Matriz mat
  *  @author Daniel Juventude
  */
-static matrix_t *matrix_inverse(matrix_t *mat)
+static matrix_t *matrix_inverse(matrix_t *m)
 {
     matrix_t *inv;
+    //isto é apenas pra função não motificar a matriz inicial (m);
+    matrix_t *mat;
+    mat = matrix_copy(m);
+    // isto não modifica em nada o funcionamento do codigo;
     inv = matrix_new(mat->rows, mat->columns);
     inv = matrix_load_identity(inv);
     
@@ -117,6 +121,7 @@ static matrix_t *matrix_inverse(matrix_t *mat)
             }
         }
     }
+    matrix_free(mat);
     return inv;
 }
 
